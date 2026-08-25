@@ -64,6 +64,33 @@ If you use this work please cite:
   year    = {2026}
 }
 ```
+## Implementation
+
+This repository provides a reference implementation of the disentangled
+autoencoder framework described in the paper. **Pretrained checkpoints are not
+distributed**; the code is released for methodological transparency and to
+allow adaptation to other datasets.
+
+### Repository contents
+
+| File | Description |
+|---|---|
+| `skipmodv5_3.py` | The **original research implementation** (unrefactored). This is the authoritative source for the model, training procedure, evaluation, and conductance analysis as used in the study. |
+| `model.py` | Cleaned model definition — encoder (E_f), skip/shift encoder (E_s, E_sh), decoder (D), latent and reconstruction discriminators, and the subject classifier. |
+| `training.py` | Cleaned three-stage training loop (reconstruction + classification → cyclic conditional generation → shift-encoder training). |
+| `evaluation.py` | Cleaned recurrent multi-step generation and CorrX evaluation. |
+| `conductance.py` | Cleaned layer-conductance attribution (exploratory analysis; see Supplementary Material). |
+
+`model.py`, `training.py`, `evaluation.py`, and `conductance.py` are cleaned,
+refactored versions of the logic contained in `skipmodv5_3.py`; the original
+file is retained as the reference of record. Where the two differ in surface
+form (naming, removed dead code), the original is authoritative.
+
+### Latent configuration
+
+The encoder produces a latent that is split into a subject-morphological code
+(*z_p*) and a temporal-dynamics code (*z_t*), each of dimension **216**
+(combined latent 432). This matches Table 1 of the manuscript.
 
 ---
 
