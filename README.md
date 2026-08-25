@@ -51,7 +51,7 @@ The framework operates on 2D spectrogram representations (magnitude + phase, sha
 | Modality | Dataset | Subjects | Segment Length |
 |---|---|---|---|
 | ECG | [EPHNOGRAM](https://physionet.org/content/ephnogram/1.0.0/) | 17 | 2.0 s |
-| PPG | [PhysioNet Arterial Blood Pressure]( https://physionet.org/content/... ) | 7 | 1.2 s |
+| PPG | [PhysioNet Arterial Blood Pressure]([ https://physionet.org/content/... ](https://physionet.org/content/bp-graphene-bioimpedance/1.0.0/subject6_day1/setup01_baseline/#files-panel)) | 7 | 1.2 s |
 ---
 
 ## Citation
