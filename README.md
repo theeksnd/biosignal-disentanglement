@@ -89,8 +89,8 @@ form (naming, removed dead code), the original is authoritative.
 ### Latent configuration
 
 The encoder produces a latent that is split into a subject-morphological code
-(*z_p*) and a temporal-dynamics code (*z_t*), each of dimension **216**
-(combined latent 432). This matches Table 1 of the manuscript.
+(*z_p*) and a temporal-dynamics code (*z_t*), each of dimension **108**
+(combined latent 216). 
 
 ---
 
