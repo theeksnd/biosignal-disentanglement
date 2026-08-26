@@ -100,15 +100,15 @@ class SkipEncode(nn.Module):
         self.latent = nn.Conv2d(108, 108, kernel_size=1, padding=0)
 
         self.mlp_fuse = nn.Sequential(
-            nn.Linear(8 * 108, 108 * 4), nn.LeakyReLU(0.2), nn.Dropout(0.2),
-            nn.Linear(108 * 4, 108 * 4), nn.LeakyReLU(0.2), nn.Dropout(0.2),
-            nn.Linear(108 * 4, 108 * 3), nn.LeakyReLU(0.2), nn.Dropout(0.2),
-            nn.Linear(108 * 3, 108 * 2),
+            nn.Linear(432, 108 * 4), nn.LeakyReLU(0.2), nn.Dropout(0.2),   
+            nn.Linear(108 * 4, 108 * 4), nn.LeakyReLU(0.2), nn.Dropout(0.2),  
+            nn.Linear(108 * 4, 108 * 3), nn.LeakyReLU(0.2), nn.Dropout(0.2), 
+            nn.Linear(108 * 3, 108),                                          
         )
         self.delta_gen = nn.Sequential(
-            nn.Linear(108 * 6, 108 * 3), nn.LeakyReLU(0.2), nn.Dropout(0.2),
+            nn.Linear(324, 108 * 3), nn.LeakyReLU(0.2), nn.Dropout(0.2),      # was nn.Linear(108*6, ...) = 648
             nn.Linear(108 * 3, 108 * 3), nn.LeakyReLU(0.2), nn.Dropout(0.2),
-            nn.Linear(108 * 3, 108 * 2),
+            nn.Linear(108 * 3, 108),                                          # output 108 (was 108*2=216)
         )
 
     def forward(self, x, z_p, z_t):
@@ -225,7 +225,6 @@ class LatentDiscriminator(nn.Module):
 
 
 class ReconDiscriminator(nn.Module):
-    """Reconstruction-space discriminator (Dis_r), on real/generated spectrograms."""
     def __init__(self):
         super().__init__()
         self.model = nn.Sequential(
@@ -235,7 +234,8 @@ class ReconDiscriminator(nn.Module):
             nn.LeakyReLU(0.4, inplace=True), nn.Dropout(0.4),
             nn.Conv2d(36, 64, (3, 7), padding=(1, 3), stride=(4, 8)),
             nn.LeakyReLU(0.4, inplace=True), nn.Dropout(0.4),
-            nn.Flatten(start_dim=1), nn.Linear(512, 1), nn.Sigmoid(),
+            nn.Flatten(start_dim=1),
+            nn.Linear(256, 1), nn.Sigmoid(),      # was nn.Linear(512, 1)
         )
     def forward(self, x, xq):
         return self.model(torch.cat([x, xq], dim=1)).squeeze(dim=-1)
@@ -256,7 +256,7 @@ class SubjectClassifier(nn.Module):
             self._c(72, 84, dropout=0.5), self._c(84, 84, dropout=0.5),
             nn.Conv2d(84, 84, 4, 2, 1),
         )
-        self.subject = nn.Linear(168, n_subjects)
+        self.subject = nn.Linear(84, n_subjects)
 
     def _c(self, i, o, stride=2, normalize=True, dropout=0.0, down=True):
         if down:
