@@ -9,7 +9,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 BASE = 108              # encoder channel width at the bottleneck
-SPLIT_PER_CODE = 216    # <-- 216 per code (code default) OR 108 (paper Table 1)
+SPLIT_PER_CODE = 108   
 N_SUBJECTS = 17
 
 # ============================ U-Net blocks ===============================
@@ -137,7 +137,7 @@ class SkipDecode(nn.Module):
 
     def forward(self, z, skip, skip_drop=False):
         d3, d4, d5, d6, d7, d8, d9, d10 = skip
-        u0 = self.up0(z.view(-1, 108, 1, 4), d10, skip_drop)
+        u0 = self.up0(z.view(-1, 108, 1, 2), d10, skip_drop)
         u1 = self.up1(u0, d9, skip_drop)
         u2 = self.up2(u1, d8, skip_drop)
         u3 = self.up3(u2, d7, skip_drop)
@@ -189,11 +189,17 @@ class DisentangledGenerator(nn.Module):
     def forward(self, x, xt):
         feat = self.feature(x)
         z, skips = self.latent(feat)
+
+        print(z.shape)
+
         z_p, z_t = torch.split_with_sizes(
             z, [self.split_per_code, self.split_per_code], dim=-1)
 
         feat_ = self.feature(xt)
         z_, skips_ = self.latent(feat_)
+
+        print(z.shape)
+
         z_p_, z_t_ = torch.split_with_sizes(
             z_, [self.split_per_code, self.split_per_code], dim=-1)
 
@@ -206,7 +212,7 @@ class DisentangledGenerator(nn.Module):
 # ============================ Discriminators & classifier ===============
 class LatentDiscriminator(nn.Module):
     """Latent-space discriminator (Dis_l), operates on concatenated codes."""
-    def __init__(self, in_dim=108 * 4):
+    def __init__(self, in_dim=108 * 2):
         super().__init__()
         self.mlp = nn.Sequential(
             nn.Linear(in_dim, 256), nn.LeakyReLU(0.4), nn.Dropout(0.4),
