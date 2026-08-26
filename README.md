@@ -80,6 +80,7 @@ allow adaptation to other datasets.
 | `training.py` | Cleaned three-stage training loop (reconstruction + classification → cyclic conditional generation → shift-encoder training). |
 | `evaluation.py` | Cleaned recurrent multi-step generation and CorrX evaluation. |
 | `conductance.py` | Cleaned layer-conductance attribution (exploratory analysis; see Supplementary Material). |
+| `test_inference.py` | Test code; see Supplementary Material). |
 
 `model.py`, `training.py`, `evaluation.py`, and `conductance.py` are cleaned,
 refactored versions of the logic contained in `skipmodv5_3.py`; the original
