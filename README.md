@@ -80,6 +80,8 @@ allow adaptation to other datasets.
 | `evaluation.py` | Cleaned recurrent multi-step generation and CorrX evaluation. |
 | `conductance.py` | Cleaned layer-conductance attribution (exploratory analysis; see Supplementary Material). |
 | `test_inference.py` | Test code; see Supplementary Material). |
+| `dataset.py` | An example data generation code, but not optimal; segment-level or LOSO-CV is recommended |
+
 
 ### Latent configuration
 
