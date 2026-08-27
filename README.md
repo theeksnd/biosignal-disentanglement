@@ -81,11 +81,6 @@ allow adaptation to other datasets.
 | `conductance.py` | Cleaned layer-conductance attribution (exploratory analysis; see Supplementary Material). |
 | `test_inference.py` | Test code; see Supplementary Material). |
 
-`model.py`, `training.py`, `evaluation.py`, and `conductance.py` are cleaned,
-refactored versions of the logic contained in `skipmodv5_3.py`; the original
-file is retained as the reference of record. Where the two differ in surface
-form (naming, removed dead code), the original is authoritative.
-
 ### Latent configuration
 
 The encoder produces a latent that is split into a subject-morphological code
