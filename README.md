@@ -75,7 +75,6 @@ allow adaptation to other datasets.
 
 | File | Description |
 |---|---|
-| `skipmodv5_3.py` | The **original research implementation** (unrefactored). This is the authoritative source for the model, training procedure, evaluation, and conductance analysis as used in the study. |
 | `model.py` | Cleaned model definition — encoder (E_f), skip/shift encoder (E_s, E_sh), decoder (D), latent and reconstruction discriminators, and the subject classifier. |
 | `training.py` | Cleaned three-stage training loop (reconstruction + classification → cyclic conditional generation → shift-encoder training). |
 | `evaluation.py` | Cleaned recurrent multi-step generation and CorrX evaluation. |
