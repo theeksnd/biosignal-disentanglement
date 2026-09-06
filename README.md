@@ -2,9 +2,14 @@
 
 ## Overview
 
-This repository contains the implementation of a generative framework for continuous long-term biosignal generation through latent disentanglement. The proposed framework combines autoencoder-based generation with adversarial learning to synthesise long-duration, subject-specific ECG and PPG signals via recurrent inference.
+The released repository contains an earlier reference implementation retained from prior work, provided for methodological transparency and
+adaptation. It does not contain the exact trained model weights or checkpoint used to produce the results reported in this manuscript, which are not distributed.
+
+The proposed framework combines autoencoder-based generation with adversarial learning to synthesise long-duration, subject-specific ECG and PPG signals via recurrent inference.
 
 The framework generates subject-conditioned ECG sequences of approximately 6 s (a reliable two-forward-step horizon), extending to approximately 8 s for a subset of subjects — beyond the single R-peak or short-segment outputs of prior generation approaches. We present these results as a preliminary within-recording proof of concept; see the manuscript for the full evaluation scope and limitations.
+
+
 
 ---
 
